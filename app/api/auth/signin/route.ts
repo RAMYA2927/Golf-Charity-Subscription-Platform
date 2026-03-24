@@ -1,15 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Pool } from 'pg';
-import bcrypt from 'bcryptjs';
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
-});
 
 export async function POST(request: NextRequest) {
-  const client = await pool.connect();
-  
   try {
     const { email, password } = await request.json();
 
@@ -20,49 +11,52 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Mock users for development (remove when database is set up)
+    const mockUsers = [
+      {
+        id: '1',
+        email: 'admin@charity.com',
+        password: 'admin123',
+        name: 'Admin User',
+        role: 'admin',
+        subscription_status: 'active',
+        charity_percentage: 50,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      },
+      {
+        id: '2',
+        email: 'user@charity.com',
+        password: 'user123',
+        name: 'Test User',
+        role: 'user',
+        subscription_status: 'active',
+        charity_percentage: 50,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      }
+    ];
+
     // Find user by email
-    const userResult = await client.query(
-      'SELECT id, email, password_hash, full_name, role, subscription_status, created_at, updated_at FROM users WHERE email = $1',
-      [email]
-    );
+    const user = mockUsers.find(u => u.email === email);
 
-    if (userResult.rows.length === 0) {
+    if (!user || user.password !== password) {
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
       );
     }
 
-    const user = userResult.rows[0];
-
-    // Verify password
-    const passwordMatch = await bcrypt.compare(password, user.password_hash);
-
-    if (!passwordMatch) {
-      return NextResponse.json(
-        { error: 'Invalid credentials' },
-        { status: 401 }
-      );
-    }
-
-    // Return user data (without password hash)
-    const createdAt = user.created_at instanceof Date 
-      ? user.created_at.toISOString() 
-      : (typeof user.created_at === 'string' ? user.created_at : new Date().toISOString());
-    
-    const updatedAt = user.updated_at instanceof Date 
-      ? user.updated_at.toISOString() 
-      : (typeof user.updated_at === 'string' ? user.updated_at : new Date().toISOString());
-
+    // Return user data (without password)
     return NextResponse.json({
       id: user.id,
       email: user.email,
-      name: user.full_name,
+      name: user.name,
       role: user.role,
       subscription_status: user.subscription_status,
-      charity_percentage: user.charity_percentage || 50,
-      created_at: createdAt,
-      updated_at: updatedAt,
+      charity_percentage: user.charity_percentage,
+      created_at: user.created_at,
+      updated_at: user.updated_at,
     });
   } catch (error) {
     console.error('Sign in error:', error);
@@ -70,7 +64,5 @@ export async function POST(request: NextRequest) {
       { error: 'Sign in failed: ' + (error instanceof Error ? error.message : 'Unknown error') },
       { status: 500 }
     );
-  } finally {
-    client.release();
   }
 }

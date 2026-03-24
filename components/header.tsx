@@ -94,7 +94,7 @@ export function Header() {
                   Sign In
                 </Link>
                 <Link href="/auth/signup" className="block px-4 py-2 bg-accent hover:bg-blue-600 rounded text-primary font-medium text-center">
-                  Subscribe
+                  Join Now
                 </Link>
               </>
             )}

@@ -20,8 +20,8 @@ async function seedUsers() {
     // Insert test users
     const result = await client.query(`
       INSERT INTO users (email, password_hash, full_name, role, subscription_status) VALUES
-      ('admin@golf.com', $1, 'Admin User', 'admin', 'active'),
-      ('user@golf.com', $2, 'Test User', 'user', 'active')
+      ('admin@charity.com', $1, 'Admin User', 'admin', 'active'),
+      ('user@charity.com', $2, 'Test User', 'user', 'active')
       ON CONFLICT (email) DO UPDATE SET password_hash = EXCLUDED.password_hash
       RETURNING email, role, full_name;
     `, [adminPassword, userPassword]);

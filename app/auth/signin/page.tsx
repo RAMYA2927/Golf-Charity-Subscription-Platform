@@ -10,6 +10,7 @@ export default function SignInPage() {
   const setUser = useAuthStore((state) => state.setUser);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -61,8 +62,8 @@ export default function SignInPage() {
     <div className="min-h-screen bg-primary flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2">Welcome Back</h1>
-          <p className="text-gray-400">Sign in to your Golf Charity account</p>
+          <h1 className="text-3xl font-bold mb-2">Continue Your Journey</h1>
+          <p className="text-gray-400">Sign in to your Charity account</p>
         </div>
 
         <form onSubmit={handleSignIn} className="space-y-4">
@@ -72,10 +73,10 @@ export default function SignInPage() {
             </div>
           )}
 
-          <div className="bg-blue-500/10 border border-blue-500 p-4 rounded-lg text-sm text-blue-300 mb-6">
-            <p className="font-semibold mb-2">Test Credentials:</p>
-            <p>Admin: admin@golf.com / admin123</p>
-            <p>User: user@golf.com / user123</p>
+          <div className="bg-purple-500/10 border border-purple-500 p-4 rounded-lg text-sm text-purple-300 mb-6">
+            <p className="font-semibold mb-2">Demo Login Details:</p>
+            <p>Admin: admin@charity.com / admin123</p>
+            <p>User: user@charity.com / user123</p>
           </div>
 
           <div>
@@ -91,13 +92,24 @@ export default function SignInPage() {
 
           <div>
             <label className="block text-sm font-medium mb-2">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                required
+                className="w-full pr-12"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-accent transition-colors"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? '🙈' : '👁️'}
+              </button>
+            </div>
           </div>
 
           <button
