@@ -1,43 +1,72 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Pool } from 'pg';
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
-});
 
 export async function GET(request: NextRequest) {
-  const client = await pool.connect();
-  
   try {
-    const result = await client.query(`
-      SELECT 
-        id, 
-        name, 
-        description, 
-        logo_url, 
-        website, 
-        total_raised, 
-        featured, 
-        created_at, 
-        updated_at 
-      FROM charities 
-      ORDER BY featured DESC, name ASC
-    `);
+    // Mock charities data for development/deployment
+    const mockCharities = [
+      {
+        id: '1',
+        name: 'Save the Children',
+        description: 'Helping children worldwide get access to education, healthcare, and protection.',
+        logo_url: '/api/placeholder/200/200',
+        website: 'https://www.savethechildren.org',
+        total_raised: 150000,
+        featured: true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      },
+      {
+        id: '2',
+        name: 'Red Cross',
+        description: 'Providing emergency assistance, disaster relief, and education worldwide.',
+        logo_url: '/api/placeholder/200/200',
+        website: 'https://www.redcross.org',
+        total_raised: 250000,
+        featured: true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      },
+      {
+        id: '3',
+        name: 'World Wildlife Fund',
+        description: 'Conserving nature and reducing the most pressing threats to the diversity of life on Earth.',
+        logo_url: '/api/placeholder/200/200',
+        website: 'https://www.worldwildlife.org',
+        total_raised: 85000,
+        featured: false,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      },
+      {
+        id: '4',
+        name: 'UNICEF',
+        description: 'Working in over 190 countries and territories to save children\'s lives.',
+        logo_url: '/api/placeholder/200/200',
+        website: 'https://www.unicef.org',
+        total_raised: 320000,
+        featured: true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      },
+      {
+        id: '5',
+        name: 'Habitat for Humanity',
+        description: 'Helping families build and improve places to call home.',
+        logo_url: '/api/placeholder/200/200',
+        website: 'https://www.habitat.org',
+        total_raised: 125000,
+        featured: false,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      },
+    ];
     
-    const charities = result.rows.map(row => ({
-      ...row,
-      total_raised: parseFloat(row.total_raised),
-    }));
-    
-    return NextResponse.json(charities);
+    return NextResponse.json(mockCharities);
   } catch (error) {
     console.error('Error fetching charities:', error);
     return NextResponse.json(
       { error: 'Failed to fetch charities' },
       { status: 500 }
     );
-  } finally {
-    client.release();
   }
 }
