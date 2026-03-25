@@ -114,6 +114,58 @@ payments           # Transaction history
 - **Charity Selection**: Choose supported causes
 - **Prize History**: Track draw participation and winnings
 
+Here are your admin and user login details for the Golf Charity platform:
+
+## 🔑 Login Credentials
+
+### **Admin Account**
+- **Email:** `admin@charity.com`
+- **Password:** `admin123`
+- **Role:** Admin
+- **Access:** Full admin dashboard
+- **Features:** Manage charities, users, draws, and platform settings
+
+### **User Account**
+- **Email:** `user@charity.com`
+- **Password:** `user123`
+- **Role:** User
+- **Access:** User dashboard
+- **Features:** Track scores, browse charities, view draws, manage profile
+
+## 🌐 How to Access
+
+1. **Go to:** https://golf-charity-subscription-platform-delta.vercel.app/
+2. **Click "Sign In"**
+3. **Enter credentials** above
+4. **Dashboard Access:**
+   - Admin → `/admin/dashboard`
+   - User → `/dashboard`
+
+## 📱 What You Can Do
+
+### **Admin Features**
+- ✅ Manage charity listings
+- ✅ View all users and subscriptions
+- ✅ Generate and publish monthly draws
+- ✅ View platform analytics
+- ✅ Manage prize distributions
+
+### **User Features**
+- ✅ Track golf scores
+- ✅ Browse and select charities
+- ✅ View draw history and winnings
+- ✅ Manage subscription
+- ✅ Update profile settings
+
+## 🎯 Quick Test
+
+1. Try both admin and user logins
+2. Explore different dashboard features
+3. Test charity browsing
+4. Check score tracking interface
+
+Both accounts are fully functional with mock data! 🚀⛳🏆
+
 ## 📊 Business Model
 
 ### Revenue Streams
@@ -205,4 +257,4 @@ payments           # Transaction history
 
 ---
 
-You can copy this entire description and paste it into your README.md file. It covers all aspects of your application with the correct deployed URL! 🚀
+
