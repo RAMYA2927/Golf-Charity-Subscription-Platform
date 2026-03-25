@@ -1,4 +1,4 @@
-Here's a comprehensive project description for your README.md that you can copy:
+
 
 ---
 
