@@ -17,8 +17,6 @@ const nextConfig = {
   output: 'standalone',
   // Disable static generation for API routes
   trailingSlash: false,
-  // Ensure API routes are not statically generated
-  generateStaticParams: false,
 };
 
 module.exports = nextConfig;
